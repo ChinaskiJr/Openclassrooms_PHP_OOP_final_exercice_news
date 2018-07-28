@@ -8,7 +8,7 @@ namespace OCFram;
  * https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php/1668568-developpement-de-la-bibliotheque
  * @version 1.0
  */
-class HTTPRequest {
+class HTTPRequest extends ApplicationComponent {
 	/**
 	 * return the data of the cookie or null if there is no cookie.
 	 * @param string $key 

@@ -10,11 +10,11 @@ namespace OCFram;
  */
 abstract class Application {
 	/**
-	 * @var An instance of HTTPRequest.
+	 * @var HTTPRequest
 	 */
 	protected $httpRequest;
 	/**
-	 * @var An instance of HTTPResponse.
+	 * @var HTTPResponse
 	 */
 	protected $httpResponse;
 	protected $name;
@@ -26,8 +26,8 @@ abstract class Application {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->httpRequest = new HTTPRequest;
-		$this->httpResponse = new HTTPResponse;
+		$this->httpRequest = new HTTPRequest($this);
+		$this->httpResponse = new HTTPResponse($this);
 		$this->name = ' ';
 	}
 	/**

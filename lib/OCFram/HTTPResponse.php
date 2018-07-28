@@ -8,9 +8,9 @@ namespace OCFram;
  * https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php/1668568-developpement-de-la-bibliotheque
  * @version 1.0
  */
-class HTTPResponse {
+class HTTPResponse extends ApplicationComponent {
 	/**
-	 * @var An instance of Page
+	 * @var Page
 	 */
 	protected $page;
 	/**
@@ -61,5 +61,4 @@ class HTTPResponse {
 	public function setPage(Page $page) {
 		$this->page = $page;
 	}
-
 }
