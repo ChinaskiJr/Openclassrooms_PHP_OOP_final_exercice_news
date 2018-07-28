@@ -3,6 +3,9 @@
 namespace OCFram;
 /**
  * The client's request will be represented as an instance of this class.
+ * @author ChinaskiJr
+ * @license CC -> Realized for the Openclassrooms class on OOP in PHP :
+ * https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php/1668568-developpement-de-la-bibliotheque
  * @version 1.0
  */
 class HTTPRequest {
