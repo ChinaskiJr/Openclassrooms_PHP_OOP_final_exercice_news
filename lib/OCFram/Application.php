@@ -17,6 +17,10 @@ abstract class Application {
 	 * @var HTTPResponse
 	 */
 	protected $httpResponse;
+	/**
+	 * @var User
+	 */
+	protected $user;
 	protected $name;
 
 	/**
@@ -28,6 +32,7 @@ abstract class Application {
 	public function __construct() {
 		$this->httpRequest = new HTTPRequest($this);
 		$this->httpResponse = new HTTPResponse($this);
+		$this->user = new User($this);
 		$this->name = ' ';
 	}
 	public function getController() {
