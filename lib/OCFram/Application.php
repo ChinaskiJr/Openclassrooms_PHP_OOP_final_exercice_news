@@ -30,6 +30,38 @@ abstract class Application {
 		$this->httpResponse = new HTTPResponse($this);
 		$this->name = ' ';
 	}
+	public function getController() {
+		$router = new Router;
+		$xml = new \DOMDocument;
+		$xml->load(__DIR__ . '../../App/' . $this->name . 'Config/routes.xml');
+		$routes = $xml->getElementsByTagName('route');
+		// Read the routes from the XML file
+		foreach ($routes as $route) {
+			$vars = [];
+			// Check if there is variables in the URL
+			if ($route->hasAttributes('vars')) {
+				$vars = explode(',', $route->getAttribute('vars'));
+			}
+			// Add the route to the router
+			try {
+				$router->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $vars));
+			} catch (\InvalidArgumentException $e) {
+				if ($e->getCode() == Route::INVALID_ARGUMENT) {
+					$this->httpResponse->redirect404();
+				}
+			}
+		}
+		try {
+			// Get the route that matches the URL
+			$matchedRoute = $router->getRoute($this->httpRequest->requestURI());
+		} catch (\RunTimeException $e) {
+			$this->httpResponse->redirect404();
+		}
+		$_GET = array_merge($_GET, $matchedRoute->vars());
+		// Instanciate the controller
+		$controllerClass = 'App\\' . $this->name . '\\Modules\\' . $matchedRoute->module() . '\\' . $matchedRoute->module() . 'Controller';
+		return new $controllerClass($this, $matchedRoute->module(), $matchedRoute->action());
+	}
 	/**
 	 * @see Daughters class
 	 */
