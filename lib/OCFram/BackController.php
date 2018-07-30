@@ -83,5 +83,6 @@ abstract class BackController extends ApplicationComponent {
 			throw new \InvalidArgumentException('The view myst be a non-empty string');
 		}
 		$this->view = $view;
+		$this->page->setContentFile(__DIR__ . '/../../App/' . $this->app->name() . '/Modules/' . $this->module . '/Views/' . $this->view . '.php');
 	}
 }
