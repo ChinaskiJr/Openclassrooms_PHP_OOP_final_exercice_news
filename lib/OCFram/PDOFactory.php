@@ -10,11 +10,11 @@ namespace OCFram;
  class PDOFactory {
  	/**
  	 * Create a PDO instance to connect to the database.
- 	 * @return PDO $db
+ 	 * @return \PDO $db
  	 */
  	public static function getMysqlConnexion() {
  		$db = new \PDO('mysql:host=localhost;dbname=news', 'root', '');
- 		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO:ERRMODE_EXCEPTION);
+ 		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
  		return $db;
  	}
  }

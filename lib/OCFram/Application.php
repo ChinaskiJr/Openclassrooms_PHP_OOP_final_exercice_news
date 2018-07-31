@@ -49,7 +49,7 @@ abstract class Application {
 		foreach ($routes as $route) {
 			$vars = [];
 			// Check if there is variables in the URL
-			if ($route->hasAttributes('vars')) {
+			if ($route->hasAttribute('vars')) {
 				$vars = explode(',', $route->getAttribute('vars'));
 			}
 			// Add the route to the router

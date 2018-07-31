@@ -23,7 +23,7 @@ class HTTPResponse extends ApplicationComponent {
 	}
 	/**
 	 * Redirect the client to a specific location.
-	 * @param $string location
+	 * @param $string $location
 	 * @return void
 	 */
 	public function redirect($location) {
@@ -41,7 +41,7 @@ class HTTPResponse extends ApplicationComponent {
 		$this->send();
 	}
 	public function send() {
-		exit($this->page()->getGeneratedPage());
+		exit($this->page->getGeneratedPage());
 	}
 	/**
 	 * Set a cookie to send the client.

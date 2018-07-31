@@ -114,13 +114,6 @@ class Route {
 		return $this->module;
 	}
 	/**
-	 * Getter of $module.
-	 * @return string $module
-	 */
-	public function module() {
-		return $this->module;
-	}
-	/**
 	 * Getter of $url.
 	 * @return string $url
 	 */

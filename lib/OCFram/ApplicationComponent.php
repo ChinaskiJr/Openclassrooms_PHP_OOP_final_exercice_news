@@ -18,7 +18,7 @@ namespace OCFram;
  	 * @param Application $app
  	 * @return void
  	 */
- 	public function _construct(Application $app) {
+ 	public function __construct(Application $app) {
  		$this->app = $app;
  	}
  	/**

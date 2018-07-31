@@ -18,7 +18,7 @@ class Page extends ApplicationComponent {
 	 * @return void
 	 */
 	public function addVar($var, $value) {
-		if (!is_string($var) || is_numeric($var) || empty($var)) {
+		if (!is_string($var) || is_numeric($var) || empty($var)) {
 			throw new \InvalidArgumentException('The name of the variable must be a non-empty string');
 		}
 		$this->$vars[$var] = $value;
@@ -42,7 +42,7 @@ class Page extends ApplicationComponent {
 	 * @return void
 	 */
 	public function setContentFile($contentFile) {
-		if (!is_string($contentFile) || empty($contentFile)) {
+		if (!is_string($contentFile) || empty($contentFile)) {
 			throw new \InvalidArgumentException('The view specified is invalid');
 		}
 		$this->contentFile = $contentFile;

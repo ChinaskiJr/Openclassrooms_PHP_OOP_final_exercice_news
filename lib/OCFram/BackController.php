@@ -79,7 +79,7 @@ abstract class BackController extends ApplicationComponent {
 	 * @return void
 	 */
 	public function setView($view) {
-		if (!is_string($view) || empty($view)) {
+		if (!is_string($view) || empty($view)) {
 			throw new \InvalidArgumentException('The view myst be a non-empty string');
 		}
 		$this->view = $view;
