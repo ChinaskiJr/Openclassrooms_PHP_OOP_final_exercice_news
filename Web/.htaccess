@@ -1,0 +1,5 @@
+RewriteEngine On
+
+#If the file exists, we don't rewrite the URL
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ bootstrap.php?app=Frontend [QSA,L]
