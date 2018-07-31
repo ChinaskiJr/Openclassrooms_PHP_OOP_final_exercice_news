@@ -31,8 +31,8 @@ namespace OCFram;
  	public function hydrate(array $data) {
  		foreach ($data as $key => $value) {
  			$method = 'set'.ucfirst($key);
- 			if (is_callable($method)) {
- 				$this->$method($value);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
  			}
  		}
  	}
@@ -59,6 +59,7 @@ namespace OCFram;
  	}
  	/**
  	 * Setter of $id
+     * @param int $id
  	 */
  	public function setId($id) {
  		$this->id = (int) $id;
@@ -70,7 +71,7 @@ namespace OCFram;
  	}
  	public function offsetGet($var) {
  		if (isset($this->$var) && is_callable([$this, $var])) {
- 			return this->$var();
+ 			return $this->$var();
  		}
  	}
  	public function offsetSet($var, $value) {

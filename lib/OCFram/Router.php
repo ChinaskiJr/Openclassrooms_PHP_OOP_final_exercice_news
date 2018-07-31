@@ -28,23 +28,25 @@ class Router {
 	 * @return Route const
 	 */
 	public function getRoute($url) {
-		// If the route feets to the URL
-		if (($varsValues = $route->match($url)) !== false) {
-			// If it has variables
-			if ($route->hasVars()) {
-				$varsNames = $route->varsNames();
-				$listVars = [];
-				// $key = name of the variables | $value = his value
-				foreach ($varsValue as $key => $match) {
-					if ($key !== 0) {
-						$listVars[$varsNames[$key - 1]] = $match;
-					}
-				}
-				$route->setVars($listVars);
-			}
+        foreach($this->routes as $route) {
+            // If the route feets to the URL
+            if (($varsValues = $route->match($url)) !== false) {
+                // If it has variables
+                if ($route->hasVars()) {
+                    $varsNames = $route->varsNames();
+                    $listVars = [];
+                    // $key = name of the variables | $value = his value
+                    foreach ($varsValues as $key => $match) {
+                        if ($key !== 0) {
+                            $listVars[$varsNames[$key - 1]] = $match;
+                        }
+                    }
+                    $route->setVars($listVars);
+                }
 
-			return $route;
-		}
-	}
-	throw new \RuntimeException('None of the roads feets to the URL', self::NO_ROUTE);
+                return $route;
+            }
+        }
+        throw new \RuntimeException('None of the roads feets to the URL', self::NO_ROUTE);
+    }
 }

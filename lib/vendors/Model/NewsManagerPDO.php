@@ -12,15 +12,13 @@ class NewsManagerPDO extends NewsManager {
         if ($beginning != -1 || $limit != -1) {
             $sql .= ' LIMIT ' . (int) $limit . ' OFFSET ' . (int) $beginning;
         }
-
         $q = $this->dao->query($sql);
-        $q = $this->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
-
-        $listNews = $q->fetchAll();
-
-        foreach ($listNews as $news) {
-            $news->setDateAdd(new \DateTime($news->dateTime()));
-            $news->setDateEdit(new \DateTime($news->dateEdit()));
+        $listNews = [];
+        while ($data = $q->fetch(\PDO::FETCH_ASSOC)) {
+            $data['id'] = (int) $data['id'];
+            $data['dateAdd'] = new \DateTime($data['dateAdd']);
+            $data['dateEdit'] = new \DateTime($data['dateEdit']);
+            array_push($listNews, new \Entity\News($data));
         }
         $q->closeCursor();
 

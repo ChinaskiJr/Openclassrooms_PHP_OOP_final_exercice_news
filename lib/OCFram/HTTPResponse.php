@@ -23,7 +23,7 @@ class HTTPResponse extends ApplicationComponent {
 	}
 	/**
 	 * Redirect the client to a specific location.
-	 * @param $string $location
+	 * @param string $location
 	 * @return void
 	 */
 	public function redirect($location) {

@@ -33,7 +33,7 @@ class Route {
 	 * @return bool const
 	 */
 	public function hasVars() {
-		return !empty($this->$vars);
+		return !empty($this->vars);
 	}
 	/**
 	 * Check if $url feets to website URL.

@@ -2,7 +2,7 @@
 
 namespace Entity;
 
-use \OCFRAM\Entity;
+use \OCFram\Entity;
 
 /**
  * News will be instances of this class.
@@ -18,9 +18,9 @@ class News extends Entity {
     protected $dateAdd;
     protected $dateEdit;
 
-    const INVALID_AUTHOR;
-    const INVALID_TITLE;
-    const INVALID_CONTENT;
+    const INVALID_AUTHOR = 1;
+    const INVALID_TITLE = 2;
+    const INVALID_CONTENT = 3;
 
     /**
      * Check if all the field of the News had been filled.
@@ -70,7 +70,7 @@ class News extends Entity {
     }
     /**
      * Setter for $dateEdit.
-     * @para \DateTime $dateEdit
+     * @param \DateTime $dateEdit
      */
     public function setDateEdit(\DateTime $dateEdit) {
         $this->dateEdit = $dateEdit;
@@ -81,39 +81,35 @@ class News extends Entity {
      * Getter of $author.
      * @return string
      */
-    public function getAuthor() {
+    public function Author() {
         return $this->author;
     }
     /**
      * Getter of $title.
      * @return string
      */
-    public function getTitle() {
+    public function Title() {
         return $this->title;
     }
     /**
      * Getter of $content.
      * @return string
      */
-    public function getContent() {
+    public function Content() {
         return $this->content;
     }
     /**
      * Getter of $dateAdd.
      * @return \DateTime
      */
-    public function getDateAdd() {
+    public function DateAdd() {
         return $this->dateAdd;
     }
     /**
      * Getter of $dateEdit.
      * @return \DateTime
      */
-    public function getDateEdit() {
+    public function DateEdit() {
         return $this->dateEdit;
     }
-
-
-
-
 }

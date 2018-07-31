@@ -43,7 +43,7 @@ abstract class Application {
 	public function getController() {
 		$router = new Router;
 		$xml = new \DOMDocument;
-		$xml->load(__DIR__ . '../../App/' . $this->name . 'Config/routes.xml');
+		$xml->load(__DIR__ . '../../../App/' . $this->name . '/Config/routes.xml');
 		$routes = $xml->getElementsByTagName('route');
 		// Read the routes from the XML file
 		foreach ($routes as $route) {
@@ -95,7 +95,7 @@ abstract class Application {
 	 * @return string
 	 */
 	public function name() {
-		return $this->name();
+		return $this->name;
 	}
 
     /**
