@@ -78,23 +78,39 @@ abstract class Application {
 	abstract public function run();
 	/**
 	 * Getter of $httpRequest.
-	 * @return HTTPRequest $httpRequest
+	 * @return HTTPRequest
 	 */
 	public function httpRequest() {
 		return $this->httpRequest;
 	}
 	/**
 	 * Getter of $httpResponse.
-	 * @return HTTPResponse $httpResponse
+	 * @return HTTPResponse
 	 */
 	public function httpResponse() {
 		return $this->httpResponse;
 	}
 	/**
 	 * Getter of $name.
-	 * @return string $name
+	 * @return string
 	 */
 	public function name() {
 		return $this->name();
 	}
+
+    /**
+     * Getter or $user
+     * @return User
+     */
+	public function user() {
+	    return $this->user;
+    }
+
+    /**
+     * Getter of $config
+     * @return Config
+     */
+    public function config() {
+	    return $this->config;
+    }
 }

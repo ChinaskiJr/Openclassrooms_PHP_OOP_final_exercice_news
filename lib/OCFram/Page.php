@@ -21,13 +21,18 @@ class Page extends ApplicationComponent {
 		if (!is_string($var) || is_numeric($var) || empty($var)) {
 			throw new \InvalidArgumentException('The name of the variable must be a non-empty string');
 		}
-		$this->$vars[$var] = $value;
+		$this->vars[$var] = $value;
 	}
 	/**
 	 * Generate the page with the layout with output bufferisation. 
 	 * @return string
 	 */
 	public function getGeneratedPage() {
+	    if (!file_exists($this->contentFile)) {
+	        throw new \RuntimeException('The specified view does not exist');
+        }
+        $user = $this->app->user();
+	    extract($this->vars);
 		ob_start();
 		require $this->contentFile;
 		$content = ob_get_clean();
