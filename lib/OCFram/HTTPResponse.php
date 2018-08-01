@@ -27,7 +27,7 @@ class HTTPResponse extends ApplicationComponent {
 	 * @return void
 	 */
 	public function redirect($location) {
-		header('Location : ' . $location);
+		header('Location: ' . $location);
 		exit;
 	}
 	/** 

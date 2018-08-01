@@ -6,3 +6,26 @@
     <br />
     <p>Updated the <?= $news['dateEdit']->format('d/m/Y \a\t H\hi') ?></p>
 <?php } ?>
+
+<p><a href="comment-<?= $news['id'] ?>.html">Post a comment</a></p>
+
+<?php
+if (empty($comments)) {
+    ?>
+    <p>No one has commented this yet. Wanna be the first ?</p>
+    <?php
+} else {
+    foreach ($comments as $comment) {
+        ?>
+        <fieldset>
+            <legend>
+                Posted by <strong><?= htmlspecialchars($comment['author']) ?></strong>
+                the <?= $comment['date']->format('d/mY \a\t H\hi') ?>
+            </legend>
+            <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+        </fieldset>
+        <br />
+        <?php
+    }
+}
+?>

@@ -1,5 +1,6 @@
 <?php
 namespace App\Frontend\Modules\News;
+use \Entity\Comment;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 
@@ -49,5 +50,31 @@ class NewsController extends BackController {
         }
         $this->page->addVar('title', $news->title());
         $this->page->addVar('news', $news);
+        $this->page->addVar('comments', $this->managers->getManagerOf('Comments')->getListOf($news->id()));
+    }
+
+    /**
+     * Check if there is a $_POST['pseudo'] var and if so et if it is valid, tells the Manager to send it to the database.
+     * @param HTTPRequest $request
+     * @return void
+     */
+    public function executeInsertComment(HTTPRequest $request) {
+        $this->page->addVar('title', 'Post a comment');
+
+        if ($request->postExists('pseudo')) {
+            $comment = new Comment([
+                'news' => $request->getData('news'),
+                'author' => $request->postData('pseudo'),
+                'content' => $request->postData('content')
+            ]);
+            if ($comment->isValid()) {
+                $this->managers->getManagerOf('Comments')->save($comment);
+                $this->app->user()->setFlash('The comment had been post, thank you.');
+                $this->app->httpResponse()->redirect('news-' . $request->getData('news').'.html');
+            } else {
+                $this->page->addVar('errors', $comment->errors());
+            }
+            $this->page->addVar('comment', $comment);
+        }
     }
 }

@@ -30,3 +30,16 @@ CREATE TABLE IF NOT EXISTS `news` (
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 ;
 ```
+
+### comments
+
+```sql 
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `news` smallint(6) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `content` text NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8 ;
+```
