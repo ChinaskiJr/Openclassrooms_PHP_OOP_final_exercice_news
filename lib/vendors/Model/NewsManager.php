@@ -14,7 +14,14 @@ abstract class NewsManager extends Manager {
      * Get the list of the news to print in function of the configuration.
      * @param int $beginning
      * @param int $limit
-     * @return mixed
+     * @return array
      */
     abstract public function getList($beginning = -1, $limit = -1);
+
+    /**
+     * Get a news by his ID.
+     * @param $id
+     * @return News
+     */
+    abstract public function getUnique($id);
 }

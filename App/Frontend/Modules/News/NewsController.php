@@ -11,6 +11,11 @@ use \OCFram\HTTPRequest;
  * @version 1.0
  */
 class NewsController extends BackController {
+    /**
+     * Read the xml config file and return the index to the view.
+     * @param HTTPRequest $request
+     * @return void
+     */
     public function executeIndex(HTTPRequest $request) {
         $nbNews = $this->app->config()->get('nb_news');
         $nbChars = $this->app->config()->get('nb_chars');
@@ -30,5 +35,19 @@ class NewsController extends BackController {
             }
         }
         $this->page->addVar('listNews', $listNews);
+    }
+    /**
+     * Get the ID from the request, match it with a news and send it to the view.
+     * @param HTTPRequest $request
+     * @return void
+     */
+    public function executeShow(HTTPRequest $request) {
+        $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
+        // Redirect to 404 if there is no news
+        if (empty($news)) {
+            $this->app->httpResponse()->redirect404();
+        }
+        $this->page->addVar('title', $news->title());
+        $this->page->addVar('news', $news);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace OCFram;
 /**
- * Every instance of this class will represente a route possible match to send to Router.
+ * Every instance of this class will represent a route possible match to send to Router.
  * @author ChinaskiJr
  * @license CC -> Realized for the Openclassrooms class on OOP in PHP :
  * https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php/1668568-developpement-de-la-bibliotheque
@@ -15,7 +15,7 @@ class Route {
 	protected $vars = [];
 	const INVALID_ARGUMENT = 2;
 	/**
-	 * Constructor of the class. Just calls the differents setters.
+	 * Constructor of the class. Just calls the setters.
 	 * @param string $url
 	 * @param string $module
 	 * @param string $action
@@ -33,7 +33,7 @@ class Route {
 	 * @return bool const
 	 */
 	public function hasVars() {
-		return !empty($this->vars);
+		return !empty($this->varsNames);
 	}
 	/**
 	 * Check if $url feets to website URL.
