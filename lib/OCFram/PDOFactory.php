@@ -13,7 +13,8 @@ namespace OCFram;
  	 * @return \PDO $db
  	 */
  	public static function getMysqlConnexion() {
- 		$db = new \PDO('mysql:host=localhost;dbname=news', 'root', '');
+ 		$db = new \PDO('mysql:host=localhost;dbname=exercices', 'root', 'RsdGLXBn');
+ 		// TODO : Reset the pw before commit
  		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
  		return $db;
  	}

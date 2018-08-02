@@ -1,5 +1,6 @@
 RewriteEngine On
 
 #If the file exists, we don't rewrite the URL
+RewriteRule ^admin/ bootstrap.php?app=Backend [QSA,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ bootstrap.php?app=Frontend [QSA,L]

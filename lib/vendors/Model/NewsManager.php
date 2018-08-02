@@ -24,4 +24,10 @@ abstract class NewsManager extends Manager {
      * @return News
      */
     abstract public function getUnique($id);
+
+    /**
+     * Count the news and returns the total.
+     * @return int
+     */
+    abstract public function count();
 }
