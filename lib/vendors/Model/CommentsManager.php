@@ -11,7 +11,7 @@ use \Entity\Comment;
  */
 abstract class CommentsManager extends Manager {
     /**
-     * Add a comment to the database
+     * Add a comment to the database.
      * @param Comment $comment
      * @return void
      */
@@ -31,23 +31,30 @@ abstract class CommentsManager extends Manager {
     }
 
     /**
-     * Edit a comment in the database
+     * Edit a comment in the database.
      * @param Comment $comment
      * @return void
      */
     abstract protected function modify(Comment $comment);
 
     /**
-     * Get a specifif comment
+     * Get a specifif comment from the database.
      * @param Comment $comment
      * @return Comment
      */
     abstract public function get($id);
 
     /**
-     * Get a list of comments
+     * Get a list of comments from the database.
      * @param $news
      * @return array
      */
     abstract public function getListOf($news);
+
+    /**
+     * Delete a comment from the database.
+     * @param $id
+     * @return void
+     */
+    abstract public function delete($id);
 }

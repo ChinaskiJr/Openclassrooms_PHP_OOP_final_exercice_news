@@ -2,9 +2,9 @@
 namespace App\Backend\Modules\News;
 
 use Entity\Comment;
+use \Entity\News;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
-use \Entity\News;
 /**
  * Controller of Backend News module
  * @author ChinaskiJr
@@ -90,6 +90,11 @@ class NewsController extends BackController {
         $this->page->addVar('news', $news);
     }
 
+    /**
+     * Send to the view the form to update a comment or send it to the manager.
+     * @param HTTPRequest $request
+     * @return void
+     */
     public function executeUpdateComment(HTTPRequest $request) {
         $this->page->addVar('title', 'Edit a comment');
         if ($request->postExists('content')) {
@@ -109,6 +114,17 @@ class NewsController extends BackController {
             $this->page->addVar('comment', $comment);
         } else {
             $this->page->addVar('comment', $this->managers->getManagerOf('Comments')->get($request->getData('id')));
+        }
+    }
+
+    public function executeDeleteComment(HTTPRequest $request) {
+        if ($request->getExists('id')) {
+            $comment = new Comment([
+                'id' => $request->getData('id')
+            ]);
+            $this->managers->getManagerOf('Comments')->delete($comment->id());
+            $this->app->user()->setFlash('The comment had been deleted.');
+            $this->app->httpResponse()->redirect('/admin/');
         }
     }
 }
