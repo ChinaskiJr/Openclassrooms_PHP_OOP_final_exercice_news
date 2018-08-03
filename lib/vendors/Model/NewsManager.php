@@ -40,6 +40,13 @@ abstract class NewsManager extends Manager {
     abstract protected function add(News $news);
 
     /**
+     * Update a news in the database.
+     * @param News $news
+     * @return void
+     */
+    abstract protected function modify(News $news);
+
+    /**
      * Record a news.
      * @param News $news
      * @see self::add()

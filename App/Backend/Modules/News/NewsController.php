@@ -23,6 +23,12 @@ class NewsController extends BackController {
         $this->page->addVar('listNews', $manager->getList());
         $this->page->addVar('nbNews', $manager->count());
     }
+
+    /**
+     * Send to the view the form adapted to the Insert action.
+     * @param HTTPRequest $request
+     * @return void
+     */
     public function executeInsert(HTTPRequest $request) {
         // Title
         $this->page->addVar('title', 'Post a news');
@@ -30,6 +36,25 @@ class NewsController extends BackController {
             $this->processForm($request);
         }
     }
+
+    /**
+     * Send to the view the form adapted to the Update action.
+     * @param HTTPRequest $request
+     */
+    public function executeUpdate(HTTPRequest $request) {
+        // Title
+        $this->page->addVar('title', 'Update a news');
+        if ($request->postExists('content')) {
+            $this->processForm($request);
+        } else {
+            $this->page->addVar('news', $this->managers->getManagerOf('News')->getUnique($request->getData('id')));
+        }
+    }
+    /**
+     * Adapt the form to the required action.
+     * @param HTTPRequest $request
+     * @return void
+     */
     public function processForm(HTTPRequest $request) {
         $news = new News ([
             'author' => $request->postData('author'),
