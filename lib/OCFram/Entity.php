@@ -13,6 +13,8 @@ namespace OCFram;
  	protected $errors = [];
  	protected $id;
 
+ 	use Hydrator;
+
  	/**
  	 * Constructor of the class
  	 * @param array $data
@@ -21,19 +23,6 @@ namespace OCFram;
  	public function __construct(array $data) {
  		if (!empty($data)) {
  			$this->hydrate($data);
- 		}
- 	}
- 	/**
- 	 * Hydrate the object with the datas
- 	 * @param array $data
- 	 * @return void
- 	 */
- 	public function hydrate(array $data) {
- 		foreach ($data as $key => $value) {
- 			$method = 'set'.ucfirst($key);
-            if (method_exists($this, $method)) {
-                $this->$method($value);
- 			}
  		}
  	}
  	/**
