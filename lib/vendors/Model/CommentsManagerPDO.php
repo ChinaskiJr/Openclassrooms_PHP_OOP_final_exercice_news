@@ -81,4 +81,14 @@ class CommentsManagerPDO extends CommentsManager {
         $q->bindValue(':id', $id, \PDO::PARAM_INT);
         $q->execute();
     }
+
+    /**
+     * @see CommentsManager
+     */
+    public function deleteFromNews($news) {
+        $sql = 'DELETE FROM comments where news = :news';
+        $q = $this->dao->prepare($sql);
+        $q->bindValue(':news', $news, \PDO::PARAM_INT);
+        $q->execute();
+    }
 }

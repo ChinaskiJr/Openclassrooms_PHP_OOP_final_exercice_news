@@ -53,8 +53,15 @@ abstract class CommentsManager extends Manager {
 
     /**
      * Delete a comment from the database.
-     * @param $id
+     * @param $id int
      * @return void
      */
     abstract public function delete($id);
+
+    /**
+     * Delete all the comments relative to a news if the news doesn't exist anymore.
+     * @param $news int The ID of the news
+     * @return void
+     */
+    abstract public function deleteFromNews($news);
 }

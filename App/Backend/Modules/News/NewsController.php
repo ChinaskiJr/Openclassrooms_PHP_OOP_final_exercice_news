@@ -62,6 +62,7 @@ class NewsController extends BackController {
                 'id' => $request->getData('id')
             ]);
             $this->managers->getManagerOf('News')->delete($news);
+            $this->managers->getManagerOf('Comments')->deleteFromNews($news->id());
             $this->app->user()->setFlash('The news had been deleted.');
             $this->app->httpResponse()->redirect('.');
         }
