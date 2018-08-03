@@ -41,11 +41,22 @@ class NewsManagerPDO extends NewsManager {
 
         return $news;
     }
-    /**cd
+    /**
      * @see NewsManager
      */
     public function count() {
         $sql = 'SELECT COUNT(*) FROM news';
         return $this->dao->query($sql)->fetchColumn();
+    }
+    /**
+     * @see NewsManager
+     */
+    protected function add(News $news) {
+        $sql = 'INSERT INTO news SET author = :author, title = :title, content = :content, dateAdd = NOW(), dateEdit = NOW()';
+        $q = $this->dao->prepare($sql);
+        $q->bindValue(':title', $news->title(), \PDO::PARAM_STR);
+        $q->bindValue(':author', $news->author(), \PDO::PARAM_STR);
+        $q->bindValue(':content', $news->content(), \PDO::PARAM_STR);
+        $q->execute();
     }
 }

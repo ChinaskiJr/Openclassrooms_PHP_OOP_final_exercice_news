@@ -27,7 +27,7 @@ class News extends Entity {
      * @return bool
      */
     public function isValid() {
-        return !(empty($author) || empty($title) || empty($content));
+        return !(empty($this->author) || empty($this->title) || empty($this->content));
     }
 
     // SETTERS

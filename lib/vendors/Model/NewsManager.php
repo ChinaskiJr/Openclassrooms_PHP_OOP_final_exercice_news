@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 use \OCFram\Manager;
+use \Entity\News;
 
 /**
  * Class NewsManager
@@ -30,4 +31,26 @@ abstract class NewsManager extends Manager {
      * @return int
      */
     abstract public function count();
+
+    /**
+     * Add a news to the database.
+     * @param News $news
+     * @return void
+     */
+    abstract protected function add(News $news);
+
+    /**
+     * Record a news.
+     * @param News $news
+     * @see self::add()
+     * @see self::modify()
+     * @return void
+     */
+    public function save(News $news) {
+        if ($news->isValid()) {
+            $news->isNew() ? $this->add($news) : $this->modify($news);
+        } else {
+            throw new \RuntimeException('The news must be validated before being send');
+        }
+    }
 }
