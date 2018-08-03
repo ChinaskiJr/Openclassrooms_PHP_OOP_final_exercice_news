@@ -22,6 +22,41 @@ class CommentsManagerPDO extends CommentsManager {
         $q->execute();
         $comment->setId($this->dao->lastInsertId());
     }
+
+    /**
+     * @see CommentsManager
+     */
+    protected function modify(Comment $comment) {
+        $sql = 'UPDATE comments SET author = :author, content = :content WHERE id = :id';
+        $q = $this->dao->prepare($sql);
+        $q->bindValue(':author', $comment->author(), \PDO::PARAM_STR);
+        $q->bindValue(':content', $comment->content(), \PDO::PARAM_STR);
+        $q->bindValue(':id', $comment->id(), \PDO::PARAM_INT);
+        $q->execute();
+    }
+
+    /**
+     * @see CommentsManager
+     */
+    public function get($id) {
+        $sql = 'SELECT id, news, author, content FROM comments WHERE id = :id';
+        $q = $this->dao->prepare($sql);
+        $q->bindValue(':id', $id, \PDO::PARAM_INT);
+        $q->execute();
+
+        $data = $q->fetch(\PDO::FETCH_ASSOC);
+        $comment = new Comment([
+            'id' => $id,
+            'news' => (int) $data['news'],
+            'author' => $data['author'],
+            'content' => $data['content']
+        ]);
+        return $comment;
+    }
+
+    /**
+     * @see CommentsManager
+     */
     public function getListOf($news) {
         $sql = 'SELECT id, news, author, content, date FROM comments WHERE news = :news';
         $q = $this->dao->prepare($sql);
@@ -32,7 +67,7 @@ class CommentsManagerPDO extends CommentsManager {
             $data['id'] = (int) $data['id'];
             $data['news'] = (int) $data['news'];
             $data['date'] = new \DateTime($data['date']);
-            array_push($listComment, new \Entity\Comment($data));
+            array_push($listComment, new Comment($data));
         }
         return $listComment;
     }

@@ -21,6 +21,13 @@ if (empty($comments)) {
             <legend>
                 Posted by <strong><?= htmlspecialchars($comment['author']) ?></strong>
                 the <?= $comment['date']->format('d/mY \a\t H\hi') ?>
+                <?php
+                    if ($user->isAuthenticated()) {
+                        ?>
+                        <a href="admin/comment-update-<?= $comment['id'] ?>.html">Modifier</a>
+                        <?php
+                    }
+                ?>
             </legend>
             <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
         </fieldset>

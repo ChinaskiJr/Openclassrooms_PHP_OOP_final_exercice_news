@@ -31,6 +31,20 @@ abstract class CommentsManager extends Manager {
     }
 
     /**
+     * Edit a comment in the database
+     * @param Comment $comment
+     * @return void
+     */
+    abstract protected function modify(Comment $comment);
+
+    /**
+     * Get a specifif comment
+     * @param Comment $comment
+     * @return Comment
+     */
+    abstract public function get($id);
+
+    /**
      * Get a list of comments
      * @param $news
      * @return array

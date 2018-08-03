@@ -1,6 +1,7 @@
 <?php
 namespace App\Backend\Modules\News;
 
+use Entity\Comment;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 use \Entity\News;
@@ -87,5 +88,27 @@ class NewsController extends BackController {
             $this->page->addVar('errors', $news->errors());
         }
         $this->page->addVar('news', $news);
+    }
+
+    public function executeUpdateComment(HTTPRequest $request) {
+        $this->page->addVar('title', 'Edit a comment');
+        if ($request->postExists('content')) {
+            $comment = new Comment([
+                'id' => $request->postData('id'),
+                'author' => $request->postData('pseudo'),
+                'content' => $request->postData('content')
+            ]);
+
+            if ($comment->isValid()) {
+                $this->managers->getManagerOf('Comments')->save($comment);
+                $this->app->user()->setFlash('The comment had been edited');
+                $this->app->httpResponse()->redirect('/news-' . $request->postData('news') . '.html');
+            } else {
+                $this->page->addVar('errors', $comment->errors());
+            }
+            $this->page->addVar('comment', $comment);
+        } else {
+            $this->page->addVar('comment', $this->managers->getManagerOf('Comments')->get($request->getData('id')));
+        }
     }
 }
