@@ -60,4 +60,11 @@ abstract class NewsManager extends Manager {
             throw new \RuntimeException('The news must be validated before being send');
         }
     }
+
+    /**
+     * Delete a news.
+     * @param News $news
+     * @return void
+     */
+    abstract public function delete(News $news);
 }

@@ -71,4 +71,14 @@ class NewsManagerPDO extends NewsManager {
         $q->bindValue(':id', $news->id(), \PDO::PARAM_INT);
         $q->execute();
     }
+
+    /**
+     * @see NewsManager
+     */
+    public function delete(News $news) {
+        $sql = 'DELETE FROM news WHERE id = :id';
+        $q = $this->dao->prepare($sql);
+        $q->bindValue(':id', $news->id(), \PDO::PARAM_INT);
+        $q->execute();
+    }
 }

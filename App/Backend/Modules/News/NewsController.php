@@ -50,6 +50,22 @@ class NewsController extends BackController {
             $this->page->addVar('news', $this->managers->getManagerOf('News')->getUnique($request->getData('id')));
         }
     }
+
+    /**
+     * Send the delete Action to the manager
+     * @param HTTPRequest $request
+     */
+    public function executeDelete(HTTPRequest $request) {
+        if ($request->getExists('id')) {
+            $news = new News([
+                'id' => $request->getData('id')
+            ]);
+            $this->managers->getManagerOf('News')->delete($news);
+            $this->app->user()->setFlash('The news had been deleted.');
+            $this->app->httpResponse()->redirect('.');
+        }
+    }
+
     /**
      * Adapt the form to the required action.
      * @param HTTPRequest $request
