@@ -3,6 +3,7 @@ namespace App\Frontend\Modules\News;
 use \Entity\Comment;
 use FormBuilder\CommentFormBuilder;
 use \OCFram\BackController;
+use OCFram\FormHandler;
 use \OCFram\HTTPRequest;
 use \OCFram\StringField;
 use \OCFram\TextField;
@@ -81,8 +82,8 @@ class NewsController extends BackController {
         $formBuilder->build();
         $form = $formBuilder->form();
 
-        if ($form->isValid()) {
-            $this->managers->getManagerOf('Comments')->save($comment);
+        $formHandler = new FormHandler($form, $this->managers->getManagerOf('Comments'), $request);
+        if ($formHandler->process()) {
             $this->app->user()->setFlash('The comment had been post, thank you.');
             $this->app->httpResponse()->redirect('news-' . $request->getData('news').'.html');
         }
