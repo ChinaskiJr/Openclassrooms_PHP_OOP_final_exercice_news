@@ -1,11 +1,14 @@
 <?php
 namespace App\Frontend\Modules\News;
 use \Entity\Comment;
+use FormBuilder\CommentFormBuilder;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 use \OCFram\StringField;
 use \OCFram\TextField;
 use \OCFram\Form;
+use \OCFram\MaxLengthValidator;
+use \OCFram\NotNullValidator;
 
 /**
  * Class NewsController
@@ -74,23 +77,10 @@ class NewsController extends BackController {
             $comment = new Comment;
         }
 
-        $form = new Form($comment);
+        $formBuilder = new CommentFormBuilder($comment);
+        $formBuilder->build();
+        $form = $formBuilder->form();
 
-        $form->add(new StringField([
-            'label' => 'Pseudo',
-            'name' => 'author',
-            'maxLength' => 50,
-            'validators' => [
-                new \OCFram\MaxLengthValidator('The name of the author is too long (50 characters max)', 50),
-                new \OCFram\NotNullValidator('You have to fill the author field')
-            ]
-            ]))
-            ->add(new TextField([
-                'label' => 'Content',
-                'name' => 'content',
-                'rows' => 7,
-                'cols' => 50,
-            ]));
         if ($form->isValid()) {
             $this->managers->getManagerOf('Comments')->save($comment);
             $this->app->user()->setFlash('The comment had been post, thank you.');

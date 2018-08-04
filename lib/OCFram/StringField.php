@@ -24,7 +24,7 @@ class StringField extends Field {
         $widget .= '<label for="' . $this->name . '">' . $this->label . '</label>';
         $widget .= '<input type ="text" id="' . $this->name . '" name="' . $this->name . '"';
         if (!empty($this->value)) {
-            $widget .=  'value="' . htmlspecialchars($this->value) . '"';
+            $widget .=  ' value="' . htmlspecialchars($this->value) . '"';
         }
         if (!empty($this->maxLenght)) {
             $widget .= ' maxlength ="' . $this->maxLenght . '"';
