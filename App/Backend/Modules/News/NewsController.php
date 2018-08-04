@@ -6,6 +6,7 @@ use \Entity\News;
 use FormBuilder\CommentFormBuilder;
 use FormBuilder\NewsFormBuilder;
 use \OCFram\BackController;
+use OCFram\FormHandler;
 use \OCFram\HTTPRequest;
 /**
  * Controller of Backend News module
@@ -86,13 +87,12 @@ class NewsController extends BackController {
                 $news = new News;
             }
         }
-
         $formBuilder = new NewsFormBuilder($news);
         $formBuilder->build();
         $form = $formBuilder->form();
 
-        if ($request->method() == 'POST' && $news->isValid()) {
-            $this->managers->getManagerOf('News')->save($news);
+        $formHandler = new FormHandler($form, $this->managers->getManagerOf('News'), $request);
+        if ($formHandler->process()) {
             $this->app->user()->setFlash($news->isNew() ? 'The news had been posted !' : 'The news had been updated !');
             $this->app->httpResponse()->redirect('/admin/');
         }
@@ -120,8 +120,8 @@ class NewsController extends BackController {
         $formBuilder->build();
         $form = $formBuilder->form();
 
-        if ($request->method() == 'POST' && $form->isValid()) {
-            $this->managers->getManagerOf('Comments')->save($comment);
+        $formHandler = new FormHandler($form, $this->managers->getManagerOf('Comments'), $request);
+        if ($formHandler->process()) {
             $this->app->user()->setFlash('The comment had been edited');
             $this->app->httpResponse()->redirect('/admin/');
         } else {
