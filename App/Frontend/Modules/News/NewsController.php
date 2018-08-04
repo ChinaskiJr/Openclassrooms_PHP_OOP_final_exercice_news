@@ -3,6 +3,9 @@ namespace App\Frontend\Modules\News;
 use \Entity\Comment;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
+use \OCFram\StringField;
+use \OCFram\TextField;
+use \OCFram\Form;
 
 /**
  * Class NewsController
@@ -61,20 +64,39 @@ class NewsController extends BackController {
     public function executeInsertComment(HTTPRequest $request) {
         $this->page->addVar('title', 'Post a comment');
 
-        if ($request->postExists('pseudo')) {
+        if ($request->method() == 'POST') {
             $comment = new Comment([
                 'news' => $request->getData('news'),
-                'author' => $request->postData('pseudo'),
+                'author' => $request->postData('author'),
                 'content' => $request->postData('content')
             ]);
-            if ($comment->isValid()) {
-                $this->managers->getManagerOf('Comments')->save($comment);
-                $this->app->user()->setFlash('The comment had been post, thank you.');
-                $this->app->httpResponse()->redirect('news-' . $request->getData('news').'.html');
-            } else {
-                $this->page->addVar('errors', $comment->errors());
-            }
-            $this->page->addVar('comment', $comment);
+        } else {
+            $comment = new Comment;
         }
+
+        $form = new Form($comment);
+
+        $form->add(new StringField([
+            'label' => 'Pseudo',
+            'name' => 'author',
+            'maxLength' => 50,
+            'validators' => [
+                new \OCFram\MaxLengthValidator('The name of the author is too long (50 characters max)', 50),
+                new \OCFram\NotNullValidator('You have to fill the author field')
+            ]
+            ]))
+            ->add(new TextField([
+                'label' => 'Content',
+                'name' => 'content',
+                'rows' => 7,
+                'cols' => 50,
+            ]));
+        if ($form->isValid()) {
+            $this->managers->getManagerOf('Comments')->save($comment);
+            $this->app->user()->setFlash('The comment had been post, thank you.');
+            $this->app->httpResponse()->redirect('news-' . $request->getData('news').'.html');
+        }
+        $this->page->addVar('form', $form->createView());
+        $this->page->addVar('comment', $comment);
     }
 }

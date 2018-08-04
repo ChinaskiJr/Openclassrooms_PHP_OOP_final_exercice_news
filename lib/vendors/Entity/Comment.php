@@ -39,7 +39,7 @@ class Comment extends Entity {
      * Getter of $author
      * @return string
      */
-    public function Author() {
+    public function author() {
         return $this->author;
     }
     /**

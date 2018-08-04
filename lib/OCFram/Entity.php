@@ -20,7 +20,7 @@ namespace OCFram;
  	 * @param array $data
  	 * @return void
  	 */
- 	public function __construct(array $data) {
+ 	public function __construct(array $data = []) {
  		if (!empty($data)) {
  			$this->hydrate($data);
  		}
